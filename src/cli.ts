@@ -1,28 +1,33 @@
-import { readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { runImport } from "./commands/import.ts";
+import { runIndex } from "./commands/index.ts";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const pkg = JSON.parse(readFileSync(join(__dirname, "../package.json"), "utf-8")) as { version: string };
+const [cmd, ...rest] = process.argv.slice(2);
 
-const args = process.argv.slice(2);
+const HELP = `noted - a tiny notes CLI
 
-if (args.length === 0 || args.includes("--help") || args.includes("-h")) {
-  console.log("noted - a tiny notes CLI");
-  console.log("");
-  console.log("Usage:");
-  console.log("  noted --help        Print this help.");
-  process.exit(0);
-}
+Usage:
+  noted import <dir>   Walk <dir>, ingest .md files into .noted/notes.json
+  noted index          Build .noted/index.json from current notes
+  noted --help         Print this help.
+`;
 
-if (args[0] === "version") {
-  if (args[1] === "--json") {
-    console.log(JSON.stringify({ version: pkg.version }));
-  } else {
-    console.log(pkg.version);
+try {
+  switch (cmd) {
+    case undefined:
+    case "--help":
+    case "-h":
+      console.log(HELP);
+      process.exit(0);
+    case "import":
+      if (!rest[0]) { console.error("import requires a directory"); process.exit(2); }
+      process.exit(await runImport(rest[0]));
+    case "index":
+      process.exit(await runIndex());
+    default:
+      console.error(`unknown command: ${cmd}`);
+      process.exit(2);
   }
-  process.exit(0);
+} catch (e: any) {
+  console.error(`error: ${e.message ?? e}`);
+  process.exit(1);
 }
-
-console.error(`unknown command: ${args.join(" ")}`);
-process.exit(2);
