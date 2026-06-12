@@ -6,7 +6,7 @@ Hard constraints (read every session):
    reason) before activating another.
 2. Citations rule: every `noted ask` line that names a note MUST include
    `cite: <absolute path>`. See `docs/citation-rule.md`.
-3. Definition of Done lives in `docs/PRODUCT.md`. Do not relax it.
+3. **Three layers, every time.** A feature is not done until `./verify.sh` exits 0.
 
 ## Topic docs
 
@@ -20,16 +20,17 @@ Hard constraints (read every session):
 
 ## Workflow
 
-1. **`./init.sh`** — must exit 0 before any work.
-2. Read `PROGRESS.md`.
-3. Pick the next item from `feature_list.json` (added M08).
-4. Work.
-5. `./verify.sh` (added M09).
-6. Update `PROGRESS.md`, commit.
+1. `./init.sh` — must exit 0 before any work.
+2. Read `PROGRESS.md` and pick the next item from `feature_list.json`.
+3. `pnpm wip activate <id>`.
+4. Implement.
+5. `./verify.sh` — must be green before claiming done.
+6. `pnpm wip pass <id>`.
+7. Update `PROGRESS.md`, commit.
 
 ## Hard constraints (repeated)
 
 1. One feature at a time.
 2. Citations rule: every `noted ask` line that names a note MUST include
    `cite: <absolute path>`.
-3. Definition of Done lives in `docs/PRODUCT.md`.
+3. **Three layers, every time.** A feature is not done until `./verify.sh` exits 0.

@@ -3,14 +3,22 @@
   "version": "0.1.0",
   "type": "module",
   "private": true,
-  "bin": { "noted": "./bin/noted" },
+  "bin": {
+    "noted": "./bin/noted"
+  },
   "scripts": {
-    "wip": "node scripts/wip.mjs",
-    "dev": "tsx src/cli.ts",
-    "test": "tsx --test src/**/*.test.ts"
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint 'src/**/*.ts'",
+    "test": "tsx --test src/**/*.test.ts",
+    "e2e": "node --test --test-reporter spec test-e2e/**/*.test.mjs",
+    "verify": "./verify.sh",
+    "wip": "node scripts/wip.mjs"
   },
   "devDependencies": {
+    "@types/node": "^25.9.3",
+    "eslint": "^9.39.4",
     "tsx": "^4.7.0",
-    "typescript": "^5.4.0"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^7.18.0"
   }
 }

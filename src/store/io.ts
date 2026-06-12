@@ -7,8 +7,8 @@ const DIR = ".noted";
 export async function readNotes(): Promise<NotesFile> {
   try {
     return JSON.parse(await readFile(`${DIR}/notes.json`, "utf8"));
-  } catch (e: any) {
-    if (e.code === "ENOENT") return { notes: [] };
+  } catch (e: unknown) {
+    if ((e as NodeJS.ErrnoException).code === "ENOENT") return { notes: [] };
     throw e;
   }
 }
@@ -16,8 +16,8 @@ export async function readNotes(): Promise<NotesFile> {
 export async function readIndex(): Promise<IndexFile> {
   try {
     return JSON.parse(await readFile(`${DIR}/index.json`, "utf8"));
-  } catch (e: any) {
-    if (e.code === "ENOENT") return { tokens: [] };
+  } catch (e: unknown) {
+    if ((e as NodeJS.ErrnoException).code === "ENOENT") return { tokens: [] };
     throw e;
   }
 }

@@ -38,9 +38,10 @@ test("ask plain mode prints title and cite for matching notes", async () => {
     console.log = orig;
 
     assert.equal(code, 0);
-    assert.equal(lines.length, 1);
+    assert.equal(lines.length, 2, "one result = two lines");
     assert.ok(lines[0].includes("Alpha Note"), "title present");
-    assert.ok(lines[0].includes("cite:"), "cite present");
+    assert.ok(/^\[[a-f0-9]{12}\]/.test(lines[0]), "id bracket present");
+    assert.ok(lines[1].trimStart().startsWith("cite:"), "cite on second line");
     assert.ok(!lines[0].startsWith("{"), "not JSON");
   } finally {
     await teardown(cwd, src, work);

@@ -36,7 +36,7 @@ try {
       console.error(`unknown command: ${cmd}`);
       process.exit(2);
   }
-} catch (e: any) {
-  console.error(`error: ${e.message ?? e}`);
+} catch (e: unknown) {
+  console.error(`error: ${e instanceof Error ? e.message : String(e)}`);
   process.exit(1);
 }

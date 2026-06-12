@@ -1,8 +1,7 @@
 # PROGRESS.md
 
 ## Current State
-- Last verified: Module 08 checkpoint (`./init.sh` exit 0, `pnpm wip status` shows VCR ≥ 0.67).
-- Active feature: import-003 (still not_started; activate in Module 09 lab).
+- Last verified: Module 09 checkpoint (`./verify.sh` exits 0, all three layers).
 
 ## Session Log
 ### 2025-MM-DD — finishing Module 05

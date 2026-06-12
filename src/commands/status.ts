@@ -6,7 +6,7 @@ export async function runStatus(): Promise<number> {
   let active = "(none)";
   try {
     const fl = JSON.parse(await readFile("feature_list.json", "utf8"));
-    const a = fl.features.find((f: any) => f.state === "in_progress");
+    const a = (fl.features as { id: string; state: string }[]).find((f) => f.state === "in_progress");
     if (a) active = a.id;
   } catch {}
 

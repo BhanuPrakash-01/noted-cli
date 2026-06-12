@@ -62,7 +62,8 @@ export async function runAsk(args: string[]): Promise<number> {
     console.log(JSON.stringify({ results }));
   } else {
     for (const note of ranked) {
-      console.log(`${note.title} — ${snippet(note.body)}  cite: ${note.path}`);
+      console.log(`[${note.id}] ${note.title} — ${snippet(note.body)}`);
+      console.log(`  cite: ${note.path}`);
     }
   }
 
