@@ -1,0 +1,37 @@
+{
+  "project": "noted-cli",
+  "rules": {
+    "wip_limit": 1,
+    "vcr_target": 1
+  },
+  "features": [
+    {
+      "id": "ask-002",
+      "title": "noted ask supports --json output",
+      "scope": [
+        "src/commands/ask.ts",
+        "src/cli.ts",
+        "src/commands/ask.test.ts"
+      ],
+      "state": "passing"
+    },
+    {
+      "id": "import-003",
+      "title": "noted import skips files larger than 1 MB",
+      "scope": [
+        "src/commands/import.ts",
+        "src/commands/import.test.ts"
+      ],
+      "state": "passing"
+    },
+    {
+      "id": "status-002",
+      "title": "noted status reports active feature id",
+      "scope": [
+        "src/commands/status.ts",
+        "src/commands/status.test.ts"
+      ],
+      "state": "in_progress"
+    }
+  ]
+}

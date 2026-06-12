@@ -1,8 +1,9 @@
 # AGENTS.md — noted-cli
 
 Hard constraints (read every session):
-
-1. One feature at a time. Do not stack work.
+1. **WIP=1.** Run `pnpm wip status` before any work. If a feature is
+   `in_progress`, finish it (or move it to `blocked` with a documented
+   reason) before activating another.
 2. Citations rule: every `noted ask` line that names a note MUST include
    `cite: <absolute path>`. See `docs/citation-rule.md`.
 3. Definition of Done lives in `docs/PRODUCT.md`. Do not relax it.

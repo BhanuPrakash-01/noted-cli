@@ -5,6 +5,7 @@
   "private": true,
   "bin": { "noted": "./bin/noted" },
   "scripts": {
+    "wip": "node scripts/wip.mjs",
     "dev": "tsx src/cli.ts",
     "test": "tsx --test src/**/*.test.ts"
   },

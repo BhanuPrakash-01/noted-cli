@@ -1,8 +1,8 @@
 # PROGRESS.md
 
 ## Current State
-- Last verified: Module 06 checkpoint (`./init.sh` exits 0; bootstrap contract green).
-- Last command run: `./init.sh`
+- Active feature: status-002
+- VCR: 2/3 = 0.67 (status-002 in_progress)
 
 ## Session Log
 ### 2025-MM-DD — finishing Module 05
