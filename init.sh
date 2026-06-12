@@ -43,9 +43,10 @@ if [ ! -f PROGRESS.md ] || ! grep -q "## Next Action" PROGRESS.md; then
   echo "FAIL: can-see-progress (PROGRESS.md missing or no Next Action)"; exit 13
 fi
 
-if [ ! -f AGENTS.md ]; then
-  echo "FAIL: can-pick-next-steps (AGENTS.md missing)"; exit 14
+if [ ! -f feature_list.json ]; then
+  echo "FAIL: can-pick-next-steps (feature_list.json missing)"; exit 14
 fi
+node scripts/wip.mjs status >/dev/null || { echo "FAIL: feature_list invalid"; exit 15; }
 
 echo "OK: bootstrap contract holds"
 echo "    can-start          PASS"

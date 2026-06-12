@@ -13,10 +13,10 @@ After `./init.sh` exits 0, the repository satisfies all four:
 | can-start             | `./bin/noted --help` exits 0        |
 | can-test              | `pnpm test` exits 0                 |
 | can-see-progress      | `PROGRESS.md` exists with `## Next Action` |
-| can-pick-next-steps   | `AGENTS.md` exists                  |
+| can-pick-next-steps   | `feature_list.json` exists          |
 
 Failure exit codes: 11 = can-start, 12 = can-test, 13 = can-see-progress,
-14 = can-pick-next-steps.
+14 = can-pick-next-steps, 15 = feature_list invalid.
 
 ## Updating
 

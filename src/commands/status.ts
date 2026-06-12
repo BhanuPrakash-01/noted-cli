@@ -3,16 +3,14 @@ import { readNotes } from "../store/io.ts";
 
 export async function runStatus(): Promise<number> {
   const { notes } = await readNotes();
-  let progress = "PROGRESS.md not found";
+  let active = "(none)";
   try {
-    const lines = (await readFile("PROGRESS.md", "utf8")).split("\n");
-    const i = lines.findIndex((l) => l.trim() === "## Next Action");
-    if (i >= 0) progress = lines.slice(i, i + 4).join("\n");
+    const fl = JSON.parse(await readFile("feature_list.json", "utf8"));
+    const a = fl.features.find((f: any) => f.state === "in_progress");
+    if (a) active = a.id;
   } catch {}
 
   console.log(`notes:    ${notes.length}`);
-  console.log(`storage:  .noted/notes.json`);
-  console.log(`---`);
-  console.log(progress);
+  console.log(`active:   ${active}`);
   return 0;
 }

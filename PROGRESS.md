@@ -1,8 +1,8 @@
 # PROGRESS.md
 
 ## Current State
-- Active feature: status-002
-- VCR: 2/3 = 0.67 (status-002 in_progress)
+- Last verified: Module 08 checkpoint (`./init.sh` exit 0, `pnpm wip status` shows VCR ≥ 0.67).
+- Active feature: import-003 (still not_started; activate in Module 09 lab).
 
 ## Session Log
 ### 2025-MM-DD — finishing Module 05

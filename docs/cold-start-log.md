@@ -21,3 +21,8 @@ of `AGENTS.md`; full text in `docs/citation-rule.md`.
 Rebuild cost: ~90 seconds from terminal-open to identifying next action.
 Knowledge visibility gap (5 questions): Q1–Q4 fully sourced; Q5 still
 points at "Module 08 will add `feature_list.json`." Gap = 20%.
+
+## 2025-MM-DD (after Module 08)
+
+Knowledge visibility gap closed. All five cold-start questions answer
+from files: PROGRESS.md (Q4) and feature_list.json (Q5). Gap = 0%.

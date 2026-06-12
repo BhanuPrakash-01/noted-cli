@@ -29,7 +29,7 @@ try {
       process.exit(await runIndex());
     case "ask":
       if (!rest[0]) { console.error("ask requires a query"); process.exit(2); }
-      process.exit(await runAsk(rest.join(" ")));
+      process.exit(await runAsk(rest));
     case "status":
       process.exit(await runStatus());
     default:
