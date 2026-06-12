@@ -15,3 +15,9 @@ Reproduced lost-in-the-middle: bloated AGENTS.md placed the citation rule
 in the middle, agent missed it. Split into routing + topic docs, agent
 followed the rule. Citation rule is now duplicated at the top and bottom
 of `AGENTS.md`; full text in `docs/citation-rule.md`.
+
+## 2025-MM-DD (after Module 05)
+
+Rebuild cost: ~90 seconds from terminal-open to identifying next action.
+Knowledge visibility gap (5 questions): Q1–Q4 fully sourced; Q5 still
+points at "Module 08 will add `feature_list.json`." Gap = 20%.
