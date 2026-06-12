@@ -17,3 +17,9 @@ context, consequences. Append-only — strike through, never delete.
   uses citations to make verification machine-checkable.
 - Consequence: Every change to `runAsk` must preserve the `cite:` line.
   Module 09's e2e test will assert it.
+
+## D-003 — `./init.sh` is the only supported entry path
+- Date: 2025-MM-DD (Module 06)
+- Context: Agents otherwise run `pnpm test` directly and skip the contract probe.
+- Consequence: Anything that breaks `./init.sh` blocks every session. The
+  failure exit codes (11–14) are stable and referenced from `docs/BOOTSTRAP.md`.

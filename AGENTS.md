@@ -19,12 +19,12 @@ Hard constraints (read every session):
 
 ## Workflow
 
-1. `./init.sh` (added M06)
-2. Read `PROGRESS.md` (added M05)
-3. Pick the next item from `feature_list.json` (added M08)
-4. Work
-5. `./verify.sh` (added M09)
-6. Update `PROGRESS.md`, commit
+1. **`./init.sh`** — must exit 0 before any work.
+2. Read `PROGRESS.md`.
+3. Pick the next item from `feature_list.json` (added M08).
+4. Work.
+5. `./verify.sh` (added M09).
+6. Update `PROGRESS.md`, commit.
 
 ## Hard constraints (repeated)
 

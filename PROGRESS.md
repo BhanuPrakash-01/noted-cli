@@ -1,10 +1,8 @@
 # PROGRESS.md
 
 ## Current State
-- Last verified: Module 05 checkpoint (`pnpm test` 1/1, `./bin/noted status` exits 0).
-- Active feature: none.
-- Last command run: `git commit -q -m "module-05: PROGRESS, DECISIONS, status"`.
-- Known issues: none.
+- Last verified: Module 06 checkpoint (`./init.sh` exits 0; bootstrap contract green).
+- Last command run: `./init.sh`
 
 ## Session Log
 ### 2025-MM-DD — finishing Module 05
