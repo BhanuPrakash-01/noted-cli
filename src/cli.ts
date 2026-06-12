@@ -1,6 +1,7 @@
 import { runImport } from "./commands/import.ts";
 import { runIndex } from "./commands/index.ts";
 import { runAsk } from "./commands/ask.ts";
+import { runStatus } from "./commands/status.ts";
 
 const [cmd, ...rest] = process.argv.slice(2);
 
@@ -11,6 +12,7 @@ Usage:
   noted index          Build .noted/index.json from current notes
   noted ask <query>    Search notes; prints title, snippet, and cite path
   noted --help         Print this help.
+  noted status         Print the current status of the notes
 `;
 
 try {
@@ -28,6 +30,8 @@ try {
     case "ask":
       if (!rest[0]) { console.error("ask requires a query"); process.exit(2); }
       process.exit(await runAsk(rest.join(" ")));
+    case "status":
+      process.exit(await runStatus());
     default:
       console.error(`unknown command: ${cmd}`);
       process.exit(2);
