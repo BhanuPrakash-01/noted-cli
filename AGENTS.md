@@ -1,55 +1,34 @@
-# AGENTS.md - noted-cli
+# AGENTS.md — noted-cli
 
-This repository is designed for long-running coding-agent work. The goal is not
-to maximize raw code output. The goal is to leave the repo in a state where the
-next session can continue without guessing.
+Hard constraints (read every session):
 
-## Startup Workflow
+1. One feature at a time. Do not stack work.
+2. Citations rule: every `noted ask` line that names a note MUST include
+   `cite: <absolute path>`. See `docs/citation-rule.md`.
+3. Definition of Done lives in `docs/PRODUCT.md`. Do not relax it.
 
-Before writing code:
+## Topic docs
 
-1. Confirm the working directory with `pwd`.
-2. Read `claude-progress.md` for the latest verified state and next step.
-3. Read `feature_list.json` and choose the highest-priority unfinished feature.
-4. Review recent commits with `git log --oneline -5`.
-5. Run `./init.sh`.
-6. Run the required smoke or end-to-end verification before starting new work.
+| Topic               | File                          |
+|---------------------|-------------------------------|
+| Architecture        | `docs/ARCHITECTURE.md`        |
+| Product scope       | `docs/PRODUCT.md`             |
+| Citation rule       | `docs/citation-rule.md`       |
+| Style & conventions | `docs/STYLE.md`               |
+| Session log         | `PROGRESS.md` (added M05)     |
 
-If baseline verification is already failing, fix that first. Do not stack new
-feature work on top of a broken starting state.
+## Workflow
 
-## Working Rules
+1. `./init.sh` (added M06)
+2. Read `PROGRESS.md` (added M05)
+3. Pick the next item from `feature_list.json` (added M08)
+4. Work
+5. `./verify.sh` (added M09)
+6. Update `PROGRESS.md`, commit
 
-- Work on one feature at a time.
-- Do not mark a feature complete just because code was added.
-- Keep changes within the selected feature scope unless a blocker forces a
-  narrow supporting fix.
-- Do not silently change verification rules during implementation.
-- Prefer durable repo artifacts over chat summaries.
+## Hard constraints (repeated)
 
-## Required Artifacts
-
-- `AGENTS.md` (you are here): routing file for any agent session
-- `docs/ARCHITECTURE.md`: code map and data flow
-- `docs/PRODUCT.md`: scope, non-goals, definition of done
-- `feature_list.json`: source of truth for feature state 
-
-## Definition Of Done
-
-A feature is done only when all of the following are true:
-
-- the target behavior is implemented
-- the required verification actually ran
-- evidence is recorded in `feature_list.json` or `claude-progress.md`
-- the repository remains restartable from the standard startup path
-
-## End Of Session
-
-Before ending a session:
-
-1. Update `claude-progress.md`.
-2. Update `feature_list.json`.
-3. Record any unresolved risk or blocker.
-4. Commit with a descriptive message once the work is in a safe state.
-5. Leave the repo clean enough for the next session to run `./init.sh`
-   immediately.
+1. One feature at a time.
+2. Citations rule: every `noted ask` line that names a note MUST include
+   `cite: <absolute path>`.
+3. Definition of Done lives in `docs/PRODUCT.md`.

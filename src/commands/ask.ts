@@ -1,0 +1,51 @@
+import { readNotes, readIndex } from "../store/io.ts";
+
+const STOP = new Set(["the", "and", "for", "with", "a", "an", "of", "to", "is", "in", "on"]);
+const SNIPPET_LEN = 120;
+const TOP_K = 5;
+
+function tokenize(s: string): string[] {
+  return s.toLowerCase().match(/[a-z0-9]{3,}/g)?.filter((t) => !STOP.has(t)) ?? [];
+}
+
+function snippet(body: string): string {
+  const s = body.replace(/\s+/g, " ").trim();
+  return s.length <= SNIPPET_LEN ? s : s.slice(0, SNIPPET_LEN).trimEnd() + "…";
+}
+
+export async function runAsk(query: string): Promise<number> {
+  const queryTokens = tokenize(query);
+  if (queryTokens.length === 0) {
+    console.error("ask requires a non-empty query");
+    return 2;
+  }
+
+  const { notes } = await readNotes();
+  const { tokens } = await readIndex();
+
+  const scores = new Map<string, number>();
+  for (const { token, note_ids } of tokens) {
+    if (queryTokens.includes(token)) {
+      for (const id of note_ids) {
+        scores.set(id, (scores.get(id) ?? 0) + 1);
+      }
+    }
+  }
+
+  if (scores.size === 0) {
+    console.log("no matches");
+    return 0;
+  }
+
+  const ranked = Array.from(scores.entries())
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, TOP_K)
+    .map(([id]) => notes.find((n) => n.id === id))
+    .filter(Boolean) as typeof notes;
+
+  for (const note of ranked) {
+    console.log(`${note.title} — ${snippet(note.body)}  cite: ${note.path}`);
+  }
+
+  return 0;
+}

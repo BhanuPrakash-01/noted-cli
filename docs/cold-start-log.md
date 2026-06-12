@@ -8,3 +8,10 @@ have placeholders pending Module 05 (`PROGRESS.md`) and Module 08
 
 Knowledge visibility gap (5 questions, 2 placeholders): 40%. Target by end
 of Module 08: 0%.
+
+## 2025-MM-DD (after Module 04)
+
+Reproduced lost-in-the-middle: bloated AGENTS.md placed the citation rule
+in the middle, agent missed it. Split into routing + topic docs, agent
+followed the rule. Citation rule is now duplicated at the top and bottom
+of `AGENTS.md`; full text in `docs/citation-rule.md`.

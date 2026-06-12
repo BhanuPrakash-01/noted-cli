@@ -13,6 +13,15 @@ export async function readNotes(): Promise<NotesFile> {
   }
 }
 
+export async function readIndex(): Promise<IndexFile> {
+  try {
+    return JSON.parse(await readFile(`${DIR}/index.json`, "utf8"));
+  } catch (e: any) {
+    if (e.code === "ENOENT") return { tokens: [] };
+    throw e;
+  }
+}
+
 export async function writeJson(rel: string, data: unknown): Promise<void> {
   const path = `${DIR}/${rel}`;
   await mkdir(dirname(path), { recursive: true });
