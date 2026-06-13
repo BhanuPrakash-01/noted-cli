@@ -48,6 +48,9 @@ if [ ! -f feature_list.json ]; then
 fi
 node scripts/wip.mjs status >/dev/null || { echo "FAIL: feature_list invalid"; exit 15; }
 
+echo "==> Tail of logs/run.jsonl (last 5):"
+tail -n 5 logs/run.jsonl 2>/dev/null || true
+
 echo "OK: bootstrap contract holds"
 echo "    can-start          PASS"
 echo "    can-test           PASS"

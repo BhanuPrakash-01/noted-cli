@@ -2,6 +2,7 @@ import { runImport } from "./commands/import.ts";
 import { runIndex } from "./commands/index.ts";
 import { runAsk } from "./commands/ask.ts";
 import { runStatus } from "./commands/status.ts";
+import { log } from "./log.ts";
 
 const [cmd, ...rest] = process.argv.slice(2);
 
@@ -15,28 +16,56 @@ Usage:
   noted status         Print the current status of the notes
 `;
 
+// 1. Log the start of the command execution
+log("cmd_start", { cmd, args: rest });
+
 try {
+  let exitCode = 0;
+
   switch (cmd) {
     case undefined:
     case "--help":
     case "-h":
       console.log(HELP);
-      process.exit(0);
+      exitCode = 0;
+      break;
     case "import":
-      if (!rest[0]) { console.error("import requires a directory"); process.exit(2); }
-      process.exit(await runImport(rest[0]));
+      if (!rest[0]) { 
+        console.error("import requires a directory"); 
+        exitCode = 2; 
+      } else {
+        exitCode = await runImport(rest[0]);
+      }
+      break;
     case "index":
-      process.exit(await runIndex());
+      exitCode = await runIndex();
+      break;
     case "ask":
-      if (!rest[0]) { console.error("ask requires a query"); process.exit(2); }
-      process.exit(await runAsk(rest));
+      if (!rest[0]) { 
+        console.error("ask requires a query"); 
+        exitCode = 2; 
+      } else {
+        exitCode = await runAsk(rest);
+      }
+      break;
     case "status":
-      process.exit(await runStatus());
+      exitCode = await runStatus();
+      break;
     default:
       console.error(`unknown command: ${cmd}`);
-      process.exit(2);
+      exitCode = 2;
+      break;
   }
-} catch (e: unknown) {
-  console.error(`error: ${e instanceof Error ? e.message : String(e)}`);
+
+  // 2. Log successful execution or expected validations failures (exit code 0 or 2)
+  log("cmd_end", { cmd, exit: exitCode });
+  process.exit(exitCode);
+
+} catch (e: any) {
+  const errorMsg = e instanceof Error ? e.message : String(e);
+  console.error(`error: ${errorMsg}`);
+  
+  // 3. Log hard system crashes/unhandled exceptions (exit code 1)
+  log("cmd_end", { cmd, exit: 1, error: errorMsg });
   process.exit(1);
 }
