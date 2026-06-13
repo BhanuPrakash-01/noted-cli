@@ -1,0 +1,3 @@
+T1: (Total: 1.5 mins)
+T2: (Total: 2 mins)
+T3: (Total: 2 mins)

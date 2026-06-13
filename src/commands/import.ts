@@ -23,14 +23,37 @@ async function walk(dir: string): Promise<string[]> {
   return out;
 }
 
-export async function runImport(dir: string): Promise<number> {
+export async function runImport(dir: string, args: string[] = []): Promise<number> {
+  const sinceIdx = args.indexOf("--since");
+  let sinceDate: Date | null = null;
+  if (sinceIdx !== -1) {
+    const iso = args[sinceIdx + 1];
+    if (!iso) {
+      console.error("--since requires an ISO date string");
+      return 2;
+    }
+    sinceDate = new Date(iso);
+    if (isNaN(sinceDate.getTime())) {
+      console.error(`--since: invalid date "${iso}"`);
+      return 2;
+    }
+  }
+
   const root = resolve(dir);
   await stat(root);
-  const paths = await walk(root);
+  const allPaths = await walk(root);
+
+  const ingestPaths = sinceDate
+    ? (await Promise.all(allPaths.map(async (p) => {
+        const s = await stat(p);
+        return s.mtimeMs > sinceDate!.getTime() ? p : null;
+      }))).filter((p): p is string => p !== null)
+    : allPaths;
+
   const existing = await readNotes();
   const byPath = new Map(existing.notes.map((n) => [n.path, n]));
 
-  for (const p of paths) {
+  for (const p of ingestPaths) {
     const body = await readFile(p, "utf8");
     const note: Note = {
       id: id(p),
@@ -44,6 +67,6 @@ export async function runImport(dir: string): Promise<number> {
 
   const notes = Array.from(byPath.values()).sort((a, b) => a.id.localeCompare(b.id));
   await writeJson("notes.json", { notes });
-  console.log(`imported ${paths.length} note(s); total ${notes.length}`);
+  console.log(`imported ${ingestPaths.length} note(s); total ${notes.length}`);
   return 0;
 }

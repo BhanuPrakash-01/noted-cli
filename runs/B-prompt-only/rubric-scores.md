@@ -9,3 +9,7 @@ Score each session 0/1/2 along these dimensions. A 0 anywhere is a fail.
 | Verification rigor       | unit tests only                   | layers 1 + 2 green            | + layer 3 covers new behavior |
 | Handoff readiness        | PROGRESS.md stale                 | PROGRESS.md current           | + DECISIONS.md updated if needed |
 | Clean state              | clean-exit fails                  | clean-exit passes             | + logs/ tail informative      |
+
+| Correctness | Scope Adherence | Verification Rigor | Handoff Readiness | Clean State | Total | 
+|-------------|-----------------|--------------------|-------------------|-------------|-------|
+| 0           | 0               | 0                  | 0                 | 0           | 0     |

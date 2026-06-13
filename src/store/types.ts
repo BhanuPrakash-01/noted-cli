@@ -12,4 +12,4 @@ export type IndexEntry = {
 };
 
 export type NotesFile = { notes: Note[] };
-export type IndexFile = { tokens: IndexEntry[] };
+export type IndexFile = { tokens: IndexEntry[]; bigrams?: string[] };

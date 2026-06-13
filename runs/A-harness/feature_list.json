@@ -66,8 +66,70 @@
       "state": "passing",
       "evidence": [
         {
-          "ts": "2026-06-12T16:32:24.732Z",
+          "ts": "2026-06-12T16:32:24.782Z",
           "command": "./bin/noted status | grep -q '^active: '",
+          "exit": 0
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "id": "ask-top",
+      "priority": 4,
+      "area": "ask",
+      "title": "noted ask supports --top <n> flag",
+      "user_visible_behavior": "`noted ask <q> --top 5` returns up to 5 results each with a cite: line. `--top 0` exits 2.",
+      "verification_command": "./bin/noted import sample-notes >/dev/null && ./bin/noted index >/dev/null && count=$(./bin/noted ask alpha --top 5 | grep -c '^\\[') && [ \"$count\" -ge 1 ] && [ \"$count\" -le 5 ] && ./bin/noted ask alpha --top 0; [ $? -eq 2 ]",
+      "scope": [
+        "src/commands/ask.ts"
+      ],
+      "state": "passing",
+      "evidence": [
+        {
+          "ts": "2026-06-13T13:46:09.015Z",
+          "command": "./bin/noted import sample-notes >/dev/null && ./bin/noted index >/dev/null && count=$(./bin/noted ask alpha --top 5 | grep -c '^\\[') && [ \"$count\" -ge 1 ] && [ \"$count\" -le 5 ] && ./bin/noted ask alpha --top 0; [ $? -eq 2 ]",
+          "exit": 0
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "id": "import-since",
+      "priority": 5,
+      "area": "import",
+      "title": "noted import supports --since <iso> flag",
+      "user_visible_behavior": "`noted import <dir> --since <iso>` only ingests files whose mtime > iso; previously-imported notes remain present.",
+      "verification_command": "node scripts/test-import-since.mjs",
+      "scope": [
+        "src/commands/import.ts",
+        "scripts/test-import-since.mjs"
+      ],
+      "state": "passing",
+      "evidence": [
+        {
+          "ts": "2026-06-13T13:50:34.524Z",
+          "command": "node scripts/test-import-since.mjs",
+          "exit": 0
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "id": "index-bigrams",
+      "priority": 6,
+      "area": "index",
+      "title": "noted index supports --bigrams flag",
+      "user_visible_behavior": "`noted index --bigrams` adds a `bigrams` array to index.json; `noted ask` behavior is unchanged.",
+      "verification_command": "./bin/noted import sample-notes >/dev/null && ./bin/noted index --bigrams && jq -e '.bigrams | length > 0' .noted/index.json",
+      "scope": [
+        "src/commands/index.ts",
+        "src/store/types.ts"
+      ],
+      "state": "passing",
+      "evidence": [
+        {
+          "ts": "2026-06-13T13:52:00.900Z",
+          "command": "./bin/noted import sample-notes >/dev/null && ./bin/noted index --bigrams && jq -e '.bigrams | length > 0' .noted/index.json",
           "exit": 0
         }
       ],

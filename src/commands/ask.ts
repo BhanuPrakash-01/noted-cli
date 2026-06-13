@@ -16,7 +16,24 @@ function snippet(body: string): string {
 
 export async function runAsk(args: string[]): Promise<number> {
   const jsonMode = args.includes("--json");
-  const queryArgs = args.filter((a) => a !== "--json");
+
+  const topIdx = args.indexOf("--top");
+  let topK = jsonMode ? JSON_TOP_K : TOP_K;
+  if (topIdx !== -1) {
+    const val = parseInt(args[topIdx + 1] ?? "", 10);
+    if (isNaN(val) || val < 0) {
+      console.error("--top requires a positive integer");
+      return 2;
+    }
+    if (val === 0) return 2;
+    topK = val;
+  }
+
+  const queryArgs = args.filter((a, i) => {
+    if (a === "--json" || a === "--top") return false;
+    if (i > 0 && args[i - 1] === "--top") return false;
+    return true;
+  });
   const query = queryArgs.join(" ");
 
   const queryTokens = tokenize(query);
@@ -46,7 +63,6 @@ export async function runAsk(args: string[]): Promise<number> {
     return 0;
   }
 
-  const topK = jsonMode ? JSON_TOP_K : TOP_K;
   const ranked = Array.from(scores.entries())
     .sort(([, a], [, b]) => b - a)
     .slice(0, topK)

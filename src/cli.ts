@@ -30,15 +30,15 @@ try {
       exitCode = 0;
       break;
     case "import":
-      if (!rest[0]) { 
-        console.error("import requires a directory"); 
-        exitCode = 2; 
+      if (!rest[0]) {
+        console.error("import requires a directory");
+        exitCode = 2;
       } else {
-        exitCode = await runImport(rest[0]);
+        exitCode = await runImport(rest[0], rest.slice(1));
       }
       break;
     case "index":
-      exitCode = await runIndex();
+      exitCode = await runIndex(rest);
       break;
     case "ask":
       if (!rest[0]) { 
