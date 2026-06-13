@@ -1,0 +1,77 @@
+{
+  "project": "noted-cli",
+  "last_updated": "2025-MM-DD",
+  "rules": {
+    "wip_limit": 1,
+    "vcr_target": 1,
+    "passing_requires_evidence": true,
+    "do_not_skip_verification": true
+  },
+  "status_legend": {
+    "not_started": "Work has not begun.",
+    "in_progress": "Active task. Subject to WIP=1.",
+    "blocked": "Cannot continue until a documented blocker resolves.",
+    "passing": "Verification command exited 0; evidence recorded."
+  },
+  "features": [
+    {
+      "id": "ask-002",
+      "priority": 1,
+      "area": "ask",
+      "title": "noted ask supports --json output",
+      "user_visible_behavior": "`noted ask <q> --json` prints valid JSON with a top-level `results` array of length <= 3 and exits 0.",
+      "verification_command": "./bin/noted import sample-notes >/dev/null && ./bin/noted index >/dev/null && ./bin/noted ask alpha --json | node -e 'const j=JSON.parse(require(\"fs\").readFileSync(0,\"utf8\")); if(!Array.isArray(j.results)||j.results.length>3) process.exit(1)'",
+      "scope": [
+        "src/commands/ask.ts",
+        "src/cli.ts",
+        "src/commands/ask.test.ts"
+      ],
+      "state": "passing",
+      "evidence": [
+        {
+          "ts": "2026-06-12T15:55:09.428Z",
+          "command": "./bin/noted import sample-notes >/dev/null && ./bin/noted index >/dev/null && ./bin/noted ask alpha --json | node -e 'const j=JSON.parse(require(\"fs\").readFileSync(0,\"utf8\")); if(!Array.isArray(j.results)||j.results.length>3) process.exit(1)'",
+          "exit": 0
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "id": "import-003",
+      "priority": 2,
+      "area": "import",
+      "title": "noted import skips files larger than 1 MB",
+      "user_visible_behavior": "When `noted import` encounters a `.md` file > 1 MB, it logs `skip:<path>` and excludes it from `notes.json`. Smaller files import normally.",
+      "verification_command": "node scripts/test-import-skip.mjs",
+      "scope": [
+        "src/commands/import.ts",
+        "src/commands/import.test.ts",
+        "scripts/test-import-skip.mjs"
+      ],
+      "state": "not_started",
+      "evidence": [],
+      "notes": ""
+    },
+    {
+      "id": "status-002",
+      "priority": 3,
+      "area": "status",
+      "title": "noted status reports active feature id",
+      "user_visible_behavior": "`noted status` prints a line `active: <id-or-(none)>` derived from `feature_list.json`.",
+      "verification_command": "./bin/noted status | grep -q '^active: '",
+      "scope": [
+        "src/commands/status.ts",
+        "src/commands/status.test.ts"
+      ],
+      "state": "passing",
+      "evidence": [
+        {
+          "ts": "2026-06-12T16:32:24.732Z",
+          "command": "./bin/noted status | grep -q '^active: '",
+          "exit": 0
+        }
+      ],
+      "notes": ""
+    }
+  ]
+}
