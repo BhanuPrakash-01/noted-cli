@@ -61,7 +61,7 @@ try {
   log("cmd_end", { cmd, exit: exitCode });
   process.exit(exitCode);
 
-} catch (e: any) {
+} catch (e: unknown) {
   const errorMsg = e instanceof Error ? e.message : String(e);
   console.error(`error: ${errorMsg}`);
   
