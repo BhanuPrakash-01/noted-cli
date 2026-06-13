@@ -23,3 +23,10 @@ context, consequences. Append-only — strike through, never delete.
 - Context: Agents otherwise run `pnpm test` directly and skip the contract probe.
 - Consequence: Anything that breaks `./init.sh` blocks every session. The
   failure exit codes (11–14) are stable and referenced from `docs/BOOTSTRAP.md`.
+
+## D-004 — `logs/run.jsonl` is the single runtime log
+- Date: 2025-MM-DD (Module 10)
+- Context: Multiple log files complicate session debugging. One JSONL file
+  is greppable and easily tailed by `init.sh`.
+- Consequence: All commands log via `src/log.ts`; no `console.log` for
+  diagnostics. Style rule promoted.
